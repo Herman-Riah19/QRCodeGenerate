@@ -1,0 +1,90 @@
+@layout('index')
+@section('body')
+
+    <div class="container">
+      <div class="m-2">
+        @!flash()
+      </div>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Accueil</a></li>
+            <li class="breadcrumb-item active">Collections</li>
+          </ol>
+          <div class="container row">
+            <div class="col-lg-8">
+              <form method="POST" action="{{ route('home.generate')}}" class="form-group">
+                <div class="form-group row">
+                  <div class="m-2 col">
+                    @!component('components/input', {
+                    label: 'Entrer le reférence',
+                    name: 'reference',
+                    value: variable.reference
+                    })
+                  </div>
+                  <div class="m-2 col">
+                    @!component('components/input', {
+                    label: 'Entrer le nombre de debut',
+                    name: 'nombreDebut',
+                    type: 'number',
+                    value: variable.nombreDebut
+                    })
+                  </div>
+                  <div class="m-2 col">
+                    @!component('components/input', {
+                    label: 'Entrer le nombre à générer',
+                    name: 'nombre',
+                    type: 'number',
+                    value: variable.nombre
+                    })
+                  </div>
+                  <div class="m-2 col">
+                    <button class="btn btn-primary w-50" type="submit" id="button-addon2">Button</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="col-lg-4">
+              <form method="POST" action="" class="input-group m-2">
+                  @!input({ label: 'Entrer votre recherche', name: 'keyWord', value: keyWord})
+                  <button class="btn btn-success">Chercher</button>
+              </form>
+            </div>
+          </div>
+          <div class="container">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">id</th>
+                  <th scope="col">Référence</th>
+                  <th scope="col">Numero</th>
+                  <th scope="col">Image</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                @each(invitation in invitations)
+                  <tr>
+                    <th scope="row">{{ invitation.id }}</th>
+                    <td>{{ invitation.name }}</td>
+                    <td>{{ invitation.numero }}</td>
+                    <td>
+                      <img src="{{ invitation.image }}" class="img-fluid w-1 h-1" alt="{{ invitation.name }}" />
+                    </td>
+                    <td>
+                      <div class="btn-group">
+                        <a href="{{ route('home.code.delete', { id: invitation.id })}}" class="btn btn-danger">Delete</a>
+                      </div>
+                    </td>
+                  </tr>
+                @end
+              </tbody>
+            </table>
+            <ul class="pagination">
+              @each(anchor in invitations.getUrlsForRange(1, invitations.lastPage))
+              <li class="page-item">
+                <a class="page-link" href="{{ anchor.url }}">{{ anchor.page }}</a>
+              </li>
+              @end
+            </ul>
+          </div>
+    </div>
+@end

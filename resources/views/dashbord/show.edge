@@ -1,0 +1,22 @@
+@layout('index')
+@section('body')
+<div class="container">
+    <div class="m-2">
+        @!flash()
+    </div>
+    <article class="card m-5">
+        <div class="card-header bg-warning">
+            <h2 class="text-center">{{ invitation.reference }}</h2>
+        </div>
+        <div class="card-body text-center">
+            <img src="{{ invitation.image }}" alt="{{ invitation.name }}" class="img-fluid w-25"/>
+        </div>
+    </article>
+    <div class="container">
+        @if(auth)
+          
+        @end
+    </div>
+</div>
+
+@end

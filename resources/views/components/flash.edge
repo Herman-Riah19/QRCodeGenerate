@@ -1,0 +1,19 @@
+@if(flashMessages.has('success'))
+    <div class="alert alert-success">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <h2 class='text-white'>Action Success</h2> 
+        <p class="text-white">
+            {{flashMessages.get('success')}}
+        </p>
+    </div>
+@endif
+
+@if(flashMessages.has('error'))
+    <div class="alert alert-danger">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <h2 class='text-white'>Action Erreur</h2> 
+        <p class="text-white">
+            {{flashMessages.get('error')}}
+        </p>
+    </div>
+@endif

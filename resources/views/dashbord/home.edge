@@ -1,0 +1,68 @@
+@layout('index')
+@section('body')
+
+<div class="container">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#">Accueil</a></li>
+    <li class="breadcrumb-item active">Bienvenue</li>
+  </ol>
+
+  @!flash()
+
+  <div class="container">
+    <form method="POST" action="{{ route('home.generate')}}" class="form-group">
+      <div class="form-group row">
+        <div class="m-2 col">
+          @!component('components/input', {
+          label: 'Entrer le reférence',
+          name: 'reference',
+          value: variable.reference
+          })
+        </div>
+        <div class="m-2 col">
+          @!component('components/input', {
+          label: 'Entrer le nombre de debut',
+          name: 'nombreDebut',
+          type: 'number',
+          value: variable.nombreDebut
+          })
+        </div>
+        <div class="m-2 col">
+          @!component('components/input', {
+          label: 'Entrer le nombre à générer',
+          name: 'nombre',
+          type: 'number',
+          value: variable.nombre
+          })
+        </div>
+        <div class="m-2 col">
+          <button class="btn btn-primary w-50" type="submit" id="button-addon2">Button</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <button class="btn btn-success m-4" id="buttonTelechargement">Télécharger le pdf</button>
+
+  <div class="container row" id="piece">
+    @each(invitation in invitations)
+    <div class="col-lg-2 col-md-3 col-sm-4 mt-4 m-1 ">
+      <a href="{{ route('home.code.show', { reference: invitation.reference })}}" style="text-decoration:none; color:#000;">
+        @!card({
+          id: invitation.id,
+          name: invitation.numero,
+          image: invitation.image
+          })
+      </a>
+    </div>
+    @end
+  </div>
+  <ul class="pagination">
+    @each(anchor in invitations.getUrlsForRange(1, invitations.lastPage))
+    <li class="page-item">
+      <a class="page-link" href="{{ anchor.url }}">{{ anchor.page }}</a>
+    </li>
+    @end
+  </ul>
+</div>
+@endsection

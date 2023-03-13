@@ -1,0 +1,26 @@
+@layout('index')
+@section('body')
+<div class="container">
+    <form action={{ route('auth.login')}} method="POST" class="form-group">
+
+        <div class="m-2">
+            @!component('components/input',{
+                label: 'Entrer votre email',
+                name: 'uid',
+                type: 'email',
+                value: user.email
+            })
+        </div>
+        <div class="m-2">
+            @!component('components/input',{
+                label: 'Entrer votre mot de passe',
+                name: 'password',
+                type: 'password',
+                value: user.password
+            })
+
+        </div>
+        <button type="submit" class="btn btn-primary w-100 mt-4">Register</button>
+    </form>
+</div>
+@endsection
